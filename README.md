@@ -1,29 +1,67 @@
 # Mongoid::Enum
 
 Heavily inspired by DHH's ActiveRecord::Enum, this little library is
-really just a good tablespoon of syntactik sugar.
+just there to help you cut down the cruft in your models and make the
+world a happier place at the same time.
+
+A single line will get you fields, accessors, validations and scopes,
+and a few other bits-and-bobs.
+
+
+# Installation
+
+Add this to your Gemfile:
+
+    gem "mongoid-enum"
+
+And then run `bundle install`.
 
 
 # Usage
 
+````
 class Payment
+  include Mongoid::Document
+  include Mongoid::Enum
 
   enum :status, [:pending, :approved, :declined], 
-
 end
+````
 
-* Stores as `_status`, accessible from `status` and `status=`.
-* Automatically validates against `:options`
-* Stored as a string, but always expressed as a symbol. Access is
-indifferent (or masks said behaviour
 
 # Options
 
-:multiple
+## Default value
 
-Changes storage to `_status_array`, and allows for the storage of
-multiple options.
+If not specified, the default will be the first in your list of values
+(`:pending` in the example above). You can override this with the
+`:default` option:
 
-Should also include some finders!
+    enum :roles, [:manager, :administrator], :default => ""
 
-Payment.declined, etc..
+
+## Multiple values
+
+Sometimes you'll need to store multiple values from your list, this
+couldn't be easier:
+
+    enum, :roles => [:basic, :manager, :administrator], :multiple => true
+
+    user = User.create
+    user.roles << :basic
+    user.roles << :manager
+    user.save!
+
+    user.manager? # => true
+    user.administrator? # => false
+    user.roles # => [:basic, :manager]
+
+
+## Validations
+
+Validations are baked in by default, and ensure that the value(s) set in
+your field are always from your list of options. If you need more
+complex validations, or you just want to throw caution to the wind, you
+can turn them off:
+
+    enum :status => [:up, :down], :validation => false
