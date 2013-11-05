@@ -1,5 +1,8 @@
 # Mongoid::Enum
 
+[![Build
+Status](https://travis-ci.org/thetron/mongoid-enum.png)](https://travis-ci.org/thetron/mongoid-enum.png)
+
 Heavily inspired by [DHH's
 ActiveRecord::Enum](https://github.com/rails/rails/commit/db41eb8a6ea88b854bf5cd11070ea4245e1639c5), this little library is
 just there to help you cut down the cruft in your models and make the
