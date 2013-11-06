@@ -5,7 +5,7 @@ Status](https://travis-ci.org/thetron/mongoid-enum.png)](https://travis-ci.org/t
 
 Heavily inspired by [DHH's
 ActiveRecord::Enum](https://github.com/rails/rails/commit/db41eb8a6ea88b854bf5cd11070ea4245e1639c5), this little library is
-just there to help you cut down the cruft in your models and make the
+there to help you cut down the cruft in your models and make the
 world a happier place at the same time.
 
 A single line will get you fields, accessors, validations and scopes,
@@ -141,7 +141,7 @@ your field are always from your list of options. If you need more
 complex validations, or you just want to throw caution to the wind, you
 can turn them off:
 
-    enum :status => [:up, :down], :validation => false
+    enum :status => [:up, :down], :validate => false
 
 
 # Issues and Feature Requests

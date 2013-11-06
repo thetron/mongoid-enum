@@ -11,6 +11,7 @@ module Mongoid
         multiple = options[:multiple] || false
         default = options[:default].nil? && values.first || options[:default]
         required = options[:required].nil? || options[:required]
+        validate = options[:validate].nil? || options[:validate]
 
         const_set const_name, values
 
@@ -18,9 +19,9 @@ module Mongoid
         field field_name, :type => type, :default => default
         alias_attribute name, field_name
 
-        if multiple
+        if multiple && validate
           validates field_name, :'mongoid/enum/validators/multiple' => { :in => values, :allow_nil => !required }
-        else
+        elsif validate
           validates field_name, :inclusion => {:in => values}, :allow_nil => !required
         end
 
