@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["nicholas@bruning.com.au"]
   spec.description   = %q{Heavily inspired by DDH's ActiveRecord::Enum, this little library is just there to help you cut down the cruft in your models and make the world a happier place at the same time.}
   spec.summary       = %q{Sweet enum sugar for your Mongoid documents}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/thetron/mongoid-enum"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
