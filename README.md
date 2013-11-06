@@ -73,7 +73,7 @@ payment.status
 ````
 
 And you also get bang(!) and query(?) methods for each of the values in
-your enum (see [this example](#Usage).
+your enum (see [this example](#usage).
 
 
 ## Constants
@@ -91,7 +91,7 @@ Payment::STATUS
 ## Validations
 
 Enum values are automatically validated against the list. You can
-disable this behaviour (see (below)[#Options]).
+disable this behaviour (see [below](#options)).
 
 
 ## Scopes
@@ -142,3 +142,11 @@ complex validations, or you just want to throw caution to the wind, you
 can turn them off:
 
     enum :status => [:up, :down], :validation => false
+
+
+# Issues and Feature Requests
+
+If you have any problems, or you have a suggestion, please [submit an
+issue](https://github.com/thetron/mongoid-enum/issues) (and a failing
+test, if you can). Pull requests and feature requests are alwasy welcome
+and greatly appreciated.
