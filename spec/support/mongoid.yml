@@ -1,0 +1,6 @@
+test:
+  sessions:
+    default:
+      database: mongoid-enum_test
+      hosts:
+        - localhost:<%= ENV['BOXEN_MONGODB_PORT'] || 27017 %>
