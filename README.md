@@ -28,7 +28,7 @@ class Payment
   include Mongoid::Document
   include Mongoid::Enum
 
-  enum :status, [:pending, :approved, :declined], 
+  enum :status, [:pending, :approved, :declined]
 end
 ````
 
