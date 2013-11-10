@@ -7,8 +7,10 @@ rvm:
   - rbx-19mode
 gemfile:
   - Gemfile
-notifications:
-  recipients:
-    - nicholas@bruning.com.au
+  - Mongoid4.gemfile
 services:
   - mongodb
+branches:
+  only:
+    - master
+    - feature-mongoid4
