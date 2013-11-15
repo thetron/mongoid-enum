@@ -16,25 +16,27 @@ and a few other bits-and-bobs.
 
 Add this to your Gemfile:
 
-    gem "mongoid-enum"
+```ruby
+gem "mongoid-enum"
+```
 
 And then run `bundle install`.
 
 
 # Usage
 
-````
+```ruby
 class Payment
   include Mongoid::Document
   include Mongoid::Enum
 
   enum :status, [:pending, :approved, :declined]
 end
-````
+```
 
 Aaaaaaand then you get things like:
 
-````
+```ruby
 payment = Payment.create
 
 payment.status
@@ -49,7 +51,7 @@ payment.pending?
 Payment.approved
 # => Mongoid::Criteria for payments with status == :approved
 
-````
+```
 
 # Features
 
@@ -64,13 +66,13 @@ convenience.
 ## Accessors
 
 Your enums will get getters-and-setters with the same name. So using the
-'Payment' example above:
+`Payment` example above:
 
-````
+```ruby
 payment.status = :declined
 payment.status
 # => :declined
-````
+```
 
 And you also get bang(!) and query(?) methods for each of the values in
 your enum (see [this example](#usage).
@@ -82,10 +84,10 @@ For each enum, you'll also get a constant named after it. This is to
 help you elsewhere in your app, should you need to display, or leverage
 the list of values. Using the above example:
 
-````
+```ruby
 Payment::STATUS
 # => [:pending, :approved, :declined]
-````
+```
 
 
 ## Validations
@@ -99,11 +101,11 @@ disable this behaviour (see [below](#options)).
 A scope added for each of your enum's values. Using the example above,
 you'd automatically get:
 
-````
+```ruby
 Payment.pending # => Mongoid::Criteria
 Payment.approved # => Mongoid::Criteria
 Payment.declined # => Mongoid::Criteria
-````
+```
 
 
 # Options
@@ -114,25 +116,29 @@ If not specified, the default will be the first in your list of values
 (`:pending` in the example above). You can override this with the
 `:default` option:
 
-    enum :roles, [:manager, :administrator], :default => ""
-
+```ruby
+enum :roles, [:manager, :administrator], :default => ""
+```
 
 ## Multiple values
 
 Sometimes you'll need to store multiple values from your list, this
 couldn't be easier:
 
-    enum, :roles => [:basic, :manager, :administrator], :multiple => true
+```ruby
+enum, :roles => [:basic, :manager, :administrator], :multiple => true
 
-    user = User.create
-    user.roles << :basic
-    user.roles << :manager
-    user.save!
+# ...
 
-    user.manager? # => true
-    user.administrator? # => false
-    user.roles # => [:basic, :manager]
+user = User.create
+user.roles << :basic
+user.roles << :manager
+user.save!
 
+user.manager? # => true
+user.administrator? # => false
+user.roles # => [:basic, :manager]
+```
 
 ## Validations
 
@@ -141,8 +147,9 @@ your field are always from your list of options. If you need more
 complex validations, or you just want to throw caution to the wind, you
 can turn them off:
 
-    enum :status => [:up, :down], :validate => false
-
+```ruby
+enum :status => [:up, :down], :validate => false
+```
 
 # Issues and Feature Requests
 
