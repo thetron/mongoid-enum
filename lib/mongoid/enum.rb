@@ -26,7 +26,7 @@ module Mongoid
         end
 
         values.each do |value|
-          scope value, where(field_name => value)
+          scope value, ->{ where(field_name => value) }
 
           if multiple
             class_eval "def #{value}?() self.#{field_name}.include?(:#{value}) end"

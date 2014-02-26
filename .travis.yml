@@ -7,8 +7,5 @@ rvm:
   - rbx-19mode
 gemfile:
   - Gemfile
-notifications:
-  recipients:
-    - nicholas@bruning.com.au
 services:
   - mongodb
