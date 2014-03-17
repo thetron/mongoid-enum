@@ -51,9 +51,11 @@ module Mongoid
         values.each do |value|
           scope value, where(field_name => value)
 
-          options[:multiple] &&
-          define_array_accessor(field_name, value) ||
-          define_string_accessor(field_name, value)
+          if options[:multiple]
+            define_array_accessor(field_name, value)
+          else
+            define_string_accessor(field_name, value)
+          end
         end
       end
 
