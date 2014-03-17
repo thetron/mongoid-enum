@@ -4,6 +4,7 @@
 .config
 .yardoc
 Gemfile.lock
+Mongoid4.gemfile.lock
 InstalledFiles
 _yardoc
 coverage
