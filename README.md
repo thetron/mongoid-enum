@@ -127,7 +127,7 @@ Sometimes you'll need to store multiple values from your list, this
 couldn't be easier:
 
 ```ruby
-enum :roles => [:basic, :manager, :administrator], :multiple => true
+enum :roles, [:basic, :manager, :administrator], :multiple => true
 
 # ...
 
@@ -149,7 +149,7 @@ complex validations, or you just want to throw caution to the wind, you
 can turn them off:
 
 ```ruby
-enum :status => [:up, :down], :validate => false
+enum :status, [:up, :down], :validate => false
 ```
 
 # Issues and Feature Requests
