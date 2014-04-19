@@ -127,7 +127,7 @@ Sometimes you'll need to store multiple values from your list, this
 couldn't be easier:
 
 ```ruby
-enum, :roles => [:basic, :manager, :administrator], :multiple => true
+enum :roles => [:basic, :manager, :administrator], :multiple => true
 
 # ...
 
