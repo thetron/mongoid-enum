@@ -141,6 +141,14 @@ user.administrator? # => false
 user.roles # => [:basic, :manager]
 ```
 
+Since the underlying datatype for storing values is an array, if you 
+need to specify default(s), ensure you use an array:
+
+```ruby
+enum :roles, [:noob, :author, :editor], :multiple => true, :default => [:author, :editor] # two defaults
+enum :roles, [:noob, :author, :editor], :multiple => true, :default => [] # no default
+```
+
 ## Validations
 
 Validations are baked in by default, and ensure that the value(s) set in
