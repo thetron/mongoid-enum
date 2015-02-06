@@ -11,20 +11,13 @@ end
 describe Mongoid::Enum do
   let(:klass) { User }
   let(:instance) { User.new }
-  let(:alias_name) { :status }
-  let(:field_name) { :"_#{alias_name}" }
+  let(:field_name) { :status }
   let(:values) { [:awaiting_approval, :approved, :banned] }
-  let(:multiple_field_name) { :"_roles" }
+  let(:multiple_field_name) { :roles }
 
   describe "field" do
     it "is defined" do
       expect(klass).to have_field(field_name)
-    end
-
-    it "is aliased" do
-      expect(instance).to respond_to alias_name
-      expect(instance).to respond_to :"#{alias_name}="
-      expect(instance).to respond_to :"#{alias_name}?"
     end
 
     describe "type" do
