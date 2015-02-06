@@ -47,7 +47,7 @@ payment.approved!
 # => :approved
 
 payment.pending?
-# => :false
+# => false
 
 Payment.approved
 # => Mongoid::Criteria for payments with status == :approved
