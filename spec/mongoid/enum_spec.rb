@@ -104,15 +104,15 @@ describe Mongoid::Enum do
             instance.save
             instance.author!
             instance.editor!
-            expect(instance.editor?).to be_true
-            expect(instance.author?).to be_true
+            expect(instance.editor?).to be true
+            expect(instance.author?).to be true
           end
         end
 
         context "when {{enum}} does not contain {{value}}" do
           it "returns false" do
             instance.save
-            expect(instance.author?).to be_false
+            expect(instance.author?).to be false
           end
         end
       end
