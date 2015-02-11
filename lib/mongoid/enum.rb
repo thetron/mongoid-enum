@@ -7,7 +7,7 @@ module Mongoid
     module ClassMethods
 
       def enum(name, values, options = {})
-        field_name = :"_#{name}"
+        field_name = name.to_sym
         options = default_options(values).merge(options)
 
         set_values_constant name, values
