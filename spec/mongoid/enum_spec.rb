@@ -55,6 +55,16 @@ describe Mongoid::Enum do
       expect(klass::STATUS).to eq values
     end
   end
+  
+  describe "mapping" do
+    it "is should be returns mappings hash" do
+      expect(klass.statuses).to eq({awaiting_approval: 0, approved: 1, banned: 2})
+    end
+    
+    it "is should be returns mapping index 1" do
+      expect(klass.statuses[:approved]).to eq 1
+    end
+  end
 
   describe "accessors"do
     context "when singular" do
@@ -111,15 +121,15 @@ describe Mongoid::Enum do
             instance.save
             instance.author!
             instance.editor!
-            expect(instance.editor?).to be_true
-            expect(instance.author?).to be_true
+            expect(instance.editor?).to be_truthy
+            expect(instance.author?).to be_truthy
           end
         end
 
         context "when {{enum}} does not contain {{value}}" do
           it "returns false" do
             instance.save
-            expect(instance.author?).to be_false
+            expect(instance.author?).to be_falsey
           end
         end
       end

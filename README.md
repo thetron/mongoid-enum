@@ -90,6 +90,16 @@ Payment::STATUS
 # => [:pending, :approved, :declined]
 ```
 
+## Mappings
+
+In rare circumstances you might need to access the mapping directly. The mappings are exposed through a class method with the pluralized attribute name:
+
+Payment.statuses # => { "pending" => 0, "approved" => 1, "declined" =>2 }
+Use that class method when you need to know the ordinal value of an enum:
+
+Payment.where("status <> ?", Payment.statuses[:approved])
+Where conditions on an enum attribute must use the ordinal value of an enum.
+
 
 ## Validations
 
