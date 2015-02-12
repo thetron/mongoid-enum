@@ -1,5 +1,6 @@
 require "mongoid/enum/version"
 require "mongoid/enum/validators/multiple_validator"
+require 'active_support/inflector'
 
 module Mongoid
   module Enum
@@ -11,6 +12,7 @@ module Mongoid
         options = default_options(values).merge(options)
 
         set_values_constant name, values
+        set_values_mapping name,values
 
         create_field field_name, options
         alias_attribute name, field_name
@@ -32,6 +34,10 @@ module Mongoid
       def set_values_constant(name, values)
         const_name = name.to_s.upcase
         const_set const_name, values
+      end
+
+      def set_values_mapping(name, values)
+        class_eval "def self.#{name.to_s.pluralize}() @_enum_mappings = {}.tap {|hash| #{values}.each_with_index {|item, index| hash[item] = index}} end"
       end
 
       def create_field(field_name, options)
