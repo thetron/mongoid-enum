@@ -6,14 +6,12 @@ module Mongoid
     extend ActiveSupport::Concern
     module ClassMethods
 
-      def enum(name, values, options = {})
-        field_name = :"_#{name}"
+      def enum(field_name, values, options = {})
         options = default_options(values).merge(options)
 
-        set_values_constant name, values
+        set_values_constant field_name, values
 
         create_field field_name, options
-        alias_attribute name, field_name
 
         create_validations field_name, values, options
         define_value_scopes_and_accessors field_name, values, options

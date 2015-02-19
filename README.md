@@ -47,7 +47,7 @@ payment.approved!
 # => :approved
 
 payment.pending?
-# => :false
+# => false
 
 Payment.approved
 # => Mongoid::Criteria for payments with status == :approved
@@ -59,10 +59,7 @@ Payment.approved
 ## Field
 
 Your enum value is stored as either a Symbol, or an Array (when storing
-multiple values). The actual field name has a leading underscore (e.g.:
-`_status`), but is also aliased with its actual name for you
-convenience.
-
+multiple values).
 
 ## Accessors
 

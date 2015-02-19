@@ -11,20 +11,13 @@ end
 describe Mongoid::Enum do
   let(:klass) { User }
   let(:instance) { User.new }
-  let(:alias_name) { :status }
-  let(:field_name) { :"_#{alias_name}" }
+  let(:field_name) { :status }
   let(:values) { [:awaiting_approval, :approved, :banned] }
-  let(:multiple_field_name) { :"_roles" }
+  let(:multiple_field_name) { :roles }
 
   describe "field" do
     it "is defined" do
       expect(klass).to have_field(field_name)
-    end
-
-    it "is aliased" do
-      expect(instance).to respond_to alias_name
-      expect(instance).to respond_to :"#{alias_name}="
-      expect(instance).to respond_to :"#{alias_name}?"
     end
 
     describe "type" do
@@ -111,15 +104,15 @@ describe Mongoid::Enum do
             instance.save
             instance.author!
             instance.editor!
-            expect(instance.editor?).to be_true
-            expect(instance.author?).to be_true
+            expect(instance.editor?).to be true
+            expect(instance.author?).to be true
           end
         end
 
         context "when {{enum}} does not contain {{value}}" do
           it "returns false" do
             instance.save
-            expect(instance.author?).to be_false
+            expect(instance.author?).to be false
           end
         end
       end
