@@ -25,7 +25,7 @@ describe Mongoid::Enum do
     it "uses prefix defined in configuration" do
       old_field_name_prefix = Mongoid::Enum.configuration.field_name_prefix
       Mongoid::Enum.configure do |config|
-        config.field_name_prefix = '___'
+        config.field_name_prefix = "___"
       end
       UserWithoutPrefix = Class.new do
         include Mongoid::Document
@@ -33,7 +33,7 @@ describe Mongoid::Enum do
 
         enum :status, [:awaiting_approval, :approved, :banned]
       end
-      expect(UserWithoutPrefix).to have_field '___status'
+      expect(UserWithoutPrefix).to have_field "___status"
       Mongoid::Enum.configure do |config|
         config.field_name_prefix = old_field_name_prefix
       end
@@ -195,7 +195,8 @@ describe Mongoid::Enum do
 
   describe ".configuration" do
     it "returns Configuration object" do
-      expect(Mongoid::Enum.configuration).to be_instance_of Mongoid::Enum::Configuration
+      expect(Mongoid::Enum.configuration)
+          .to be_instance_of Mongoid::Enum::Configuration
     end
     it "returns same object when called multiple times" do
       expect(Mongoid::Enum.configuration).to be Mongoid::Enum.configuration
@@ -204,7 +205,8 @@ describe Mongoid::Enum do
 
   describe ".configure" do
     it "yields configuration if block is given" do
-      expect { |b| Mongoid::Enum.configure &b }.to yield_with_args Mongoid::Enum.configuration
+      expect { |b| Mongoid::Enum.configure &b }
+          .to yield_with_args Mongoid::Enum.configuration
     end
   end
 end

@@ -5,7 +5,7 @@ describe Mongoid::Enum::Configuration do
 
   describe "field_name_prefix" do
     it "has '_' as default value" do
-      expect(subject.field_name_prefix).to eq '_'
+      expect(subject.field_name_prefix).to eq "_"
     end
   end
 end
