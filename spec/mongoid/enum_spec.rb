@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'mongoid/enum/configuration'
 
 class User
   include Mongoid::Document
@@ -19,6 +20,23 @@ describe Mongoid::Enum do
   describe "field" do
     it "is defined" do
       expect(klass).to have_field(field_name)
+    end
+
+    it "uses prefix defined in configuration" do
+      old_field_name_prefix = Mongoid::Enum.configuration.field_name_prefix
+      Mongoid::Enum.configure do |config|
+        config.field_name_prefix = '___'
+      end
+      UserWithoutPrefix = Class.new do
+        include Mongoid::Document
+        include Mongoid::Enum
+
+        enum :status, [:awaiting_approval, :approved, :banned]
+      end
+      expect(UserWithoutPrefix).to have_field '___status'
+      Mongoid::Enum.configure do |config|
+        config.field_name_prefix = old_field_name_prefix
+      end
     end
 
     it "is aliased" do
@@ -172,6 +190,21 @@ describe Mongoid::Enum do
         instance.save
         expect(instance.roles).to eq []
       end
+    end
+  end
+
+  describe ".configuration" do
+    it "returns Configuration object" do
+      expect(Mongoid::Enum.configuration).to be_instance_of Mongoid::Enum::Configuration
+    end
+    it "returns same object when called multiple times" do
+      expect(Mongoid::Enum.configuration).to be Mongoid::Enum.configuration
+    end
+  end
+
+  describe ".configure" do
+    it "yields configuration if block is given" do
+      expect { |b| Mongoid::Enum.configure &b }.to yield_with_args Mongoid::Enum.configuration
     end
   end
 end

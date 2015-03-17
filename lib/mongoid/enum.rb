@@ -1,5 +1,6 @@
 require "mongoid/enum/version"
 require "mongoid/enum/validators/multiple_validator"
+require "mongoid/enum/configuration"
 
 module Mongoid
   module Enum
@@ -7,7 +8,7 @@ module Mongoid
     module ClassMethods
 
       def enum(name, values, options = {})
-        field_name = :"_#{name}"
+        field_name = :"#{Mongoid::Enum.configuration.field_name_prefix}#{name}"
         options = default_options(values).merge(options)
 
         set_values_constant name, values
