@@ -12,9 +12,9 @@ describe Mongoid::Enum do
   let(:klass) { User }
   let(:instance) { User.new }
   let(:alias_name) { :status }
-  let(:field_name) { :"_#{alias_name}" }
+  let(:field_name) { :"#{alias_name}" }
   let(:values) { [:awaiting_approval, :approved, :banned] }
-  let(:multiple_field_name) { :"_roles" }
+  let(:multiple_field_name) { :"roles" }
 
   describe "field" do
     it "is defined" do
