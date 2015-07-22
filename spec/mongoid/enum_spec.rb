@@ -42,7 +42,7 @@ describe Mongoid::Enum do
     it "is aliased" do
       expect(instance).to respond_to alias_name
       expect(instance).to respond_to :"#{alias_name}="
-      expect(instance).to respond_to :"#{alias_name}?"
+      expect(instance).to respond_to :"#{alias_name}"
     end
 
     describe "type" do
@@ -92,6 +92,18 @@ describe Mongoid::Enum do
 
   describe "accessors" do
     context "when singular" do
+      describe "setter" do
+        it "accepts strings" do
+          instance.status = 'banned'
+          expect(instance.status).to eq :banned
+        end
+
+        it "accepts symbols" do
+          instance.status = :banned
+          expect(instance.status).to eq :banned
+        end
+      end
+
       describe "{{value}}!" do
         it "sets the value" do
           instance.save
@@ -119,6 +131,33 @@ describe Mongoid::Enum do
     end
 
     context "when multiple" do
+      describe "setter" do
+        it "accepts strings" do
+          instance.roles = "author"
+          expect(instance.roles).to eq [:author]
+        end
+
+        it "accepts symbols" do
+          instance.roles = :author
+          expect(instance.roles).to eq [:author]
+        end
+
+        it "accepts arrays of strings" do
+          instance.roles = ['author', 'editor']
+          instance.save
+          puts instance.errors.full_messages
+          instance.reload
+          expect(instance.roles).to include(:author)
+          expect(instance.roles).to include(:editor)
+        end
+
+        it "accepts arrays of symbols"  do
+          instance.roles = [:author, :editor]
+          expect(instance.roles).to include(:author)
+          expect(instance.roles).to include(:editor)
+        end
+      end
+
       describe "{{value}}!" do
         context "when field is nil" do
           it "creates an array containing the value" do
