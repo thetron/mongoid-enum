@@ -149,6 +149,29 @@ enum :roles, [:noob, :author, :editor], :multiple => true, :default => [:author,
 enum :roles, [:noob, :author, :editor], :multiple => true, :default => [] # no default
 ```
 
+## Custom field name
+
+By default enum field name is prefixed with underscore ('_')
+```ruby
+enum :roles, [:noob, :author, :editor], :multiple => true, :default => [:author, :editor] # two defaults
+> User.new.attributes
+=> {"_id"=>BSON::ObjectId('549d746563616c2168060000'), "_roles" => [:author, :editor] }
+```
+
+It's important to be aware of prefix when using scopes/queries 
+
+`User.where(_roles: '[:author, :editor]'` 
+
+You can customize prefix with:
+
+```ruby
+Mongoid::Enum.configure do |config|
+  config.field_name_prefix = ''
+end
+```
+
+Recommended to put inside `config/initializers/mongoid.rb`
+
 ## Validations
 
 Validations are baked in by default, and ensure that the value(s) set in
