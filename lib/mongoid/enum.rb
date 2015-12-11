@@ -76,7 +76,7 @@ module Mongoid
 
       def define_string_field_accessor(name, field_name)
         class_eval "def #{name}=(val) self.write_attribute(:#{field_name}, val && val.to_sym || nil) end"
-        class_eval "def #{name}() self.read_attribute(:#{field_name}) end"
+        class_eval "def #{name}() self.read_attribute(:#{field_name}).try(:to_sym) end"
       end
 
       def define_array_accessor(field_name, value)
