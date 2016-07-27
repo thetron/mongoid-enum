@@ -15,7 +15,7 @@ module Mongoid
 
         create_field field_name, options
 
-        create_validations field_name, values, options
+        create_validations name, field_name, options
         define_value_scopes_and_accessors field_name, values, options
         define_field_accessor name, field_name, options
       end
@@ -40,12 +40,11 @@ module Mongoid
         field field_name, :type => type, :default => options[:default]
       end
 
-      def create_validations(field_name, values, options)
+      def create_validations(name, field_name, options)
         if options[:multiple] && options[:validate]
-          validates field_name, :'mongoid/enum/validators/multiple' => { :in => values.map(&:to_sym), :allow_nil => !options[:required] }
-        #FIXME: Shouldn't this be `elsif options[:validate]` ???
-        elsif validate
-          validates field_name, :inclusion => {:in => values.map(&:to_sym)}, :allow_nil => !options[:required]
+          validates field_name, :'mongoid/enum/validators/multiple' => { :in => self.const_get(name.to_s.upcase), :allow_nil => !options[:required] }
+        elsif options[:validate]
+          validates field_name, :inclusion => {:in => self.const_get(name.to_s.upcase)}, :allow_nil => !options[:required]
         end
       end
 
@@ -71,12 +70,12 @@ module Mongoid
 
       def define_array_field_accessor(name, field_name)
         class_eval "def #{name}=(vals) self.write_attribute(:#{field_name}, Array(vals).compact.map(&:to_sym)) end"
-        class_eval "def #{name}() self.read_attribute(:#{field_name}) end"
+        class_eval "def #{name}() self.send(:#{field_name}).map{ |i| i.try(:to_sym) } end"
       end
 
       def define_string_field_accessor(name, field_name)
         class_eval "def #{name}=(val) self.write_attribute(:#{field_name}, val && val.to_sym || nil) end"
-        class_eval "def #{name}() self.read_attribute(:#{field_name}) end"
+        class_eval "def #{name}() self.send(:#{field_name}) end"
       end
 
       def define_array_accessor(field_name, value)
