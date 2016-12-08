@@ -81,12 +81,12 @@ module Mongoid
 
       def define_array_accessor(field_name, value)
         class_eval "def #{value}?() self.#{field_name}.include?(:#{value}) end"
-        class_eval "def #{value}!() update_attributes! :#{field_name} => (self.#{field_name} || []) + [:#{value}] end"
+        class_eval "def #{value}!() update_attribute :#{field_name}, (self.#{field_name} || []) + [:#{value}] end"
       end
 
       def define_string_accessor(field_name, value)
         class_eval "def #{value}?() self.#{field_name} == :#{value} end"
-        class_eval "def #{value}!() update_attributes! :#{field_name} => :#{value} end"
+        class_eval "def #{value}!() update_attribute :#{field_name}, :#{value} end"
       end
     end
   end
