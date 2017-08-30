@@ -160,6 +160,14 @@ can turn them off:
 enum :status, [:up, :down], :validate => false
 ```
 
+## Disable scopes
+
+Scopes are included by default, but can be disabled:
+
+```ruby
+enum :status, [:up, :down], :scopes => false
+```
+
 # Issues and Feature Requests
 
 If you have any problems, or you have a suggestion, please [submit an
