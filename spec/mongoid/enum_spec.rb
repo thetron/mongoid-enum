@@ -200,6 +200,41 @@ describe Mongoid::Enum do
   end
 
   describe "scopes" do
+    context "when configured with scope method prefix" do
+      it "uses prefix defined in configuration" do
+        old_scope_method_prefix = Mongoid::Enum.configuration.scope_method_prefix
+        Mongoid::Enum.configure do |config|
+          config.scope_method_prefix = "scope_"
+        end
+        UserWithScopeMethodPrefix = Class.new do
+          include Mongoid::Document
+          include Mongoid::Enum
+
+          enum :status, [:awaiting_approval, :approved, :banned]
+        end
+        expect(UserWithScopeMethodPrefix).to respond_to(:scope_awaiting_approval)
+        expect(UserWithScopeMethodPrefix).to respond_to(:scope_approved)
+        expect(UserWithScopeMethodPrefix).to respond_to(:scope_banned)
+        Mongoid::Enum.configure do |config|
+          config.scope_method_prefix = old_scope_method_prefix
+        end
+      end
+    end
+
+    context "when scopes are disabled" do
+      it "does not create scope methods" do
+        UserWithScopesDisabled = Class.new do
+          include Mongoid::Document
+          include Mongoid::Enum
+
+          enum :status, [:awaiting_approval, :approved, :banned], :scopes => false
+        end
+        expect(UserWithScopesDisabled).not_to respond_to(:awaiting_approval)
+        expect(UserWithScopesDisabled).not_to respond_to(:approved)
+        expect(UserWithScopesDisabled).not_to respond_to(:banned)
+      end
+    end
+
     context "when singular" do
       it "returns the corresponding documents" do
         instance.save

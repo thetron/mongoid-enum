@@ -26,7 +26,8 @@ module Mongoid
           :multiple => false,
           :default  => values.first,
           :required => true,
-          :validate => true
+          :validate => true,
+          :scopes => true
         }
       end
 
@@ -51,7 +52,7 @@ module Mongoid
 
       def define_value_scopes_and_accessors(field_name, values, options)
         values.each do |value|
-          scope value, ->{ where(field_name => value) }
+          scope "#{Mongoid::Enum.configuration.scope_method_prefix}#{value}" , ->{ where(field_name => value) } if options[:scopes]
 
           if options[:multiple]
             define_array_accessor(field_name, value)

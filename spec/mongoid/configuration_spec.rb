@@ -8,4 +8,10 @@ describe Mongoid::Enum::Configuration do
       expect(subject.field_name_prefix).to eq "_"
     end
   end
+
+  describe "scope_method_prefix" do
+    it "has '' as default value" do
+      expect(subject.scope_method_prefix).to eq ''
+    end
+  end
 end

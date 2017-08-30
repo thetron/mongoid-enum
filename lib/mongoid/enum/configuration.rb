@@ -2,9 +2,11 @@ module Mongoid
   module Enum
     class Configuration
       attr_accessor :field_name_prefix
+      attr_accessor :scope_method_prefix
 
       def initialize
         self.field_name_prefix = "_"
+        self.scope_method_prefix = ""
       end
     end
 
