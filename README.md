@@ -1,8 +1,8 @@
 # Mongoid::Enum
 
 [![Build
-Status](https://travis-ci.org/thetron/mongoid-enum.png)](https://travis-ci.org/thetron/mongoid-enum)
-[![Code Climate](https://codeclimate.com/github/thetron/mongoid-enum.png)](https://codeclimate.com/github/thetron/mongoid-enum)
+Status](https://travis-ci.org/thetron/mongoid-enum.svg)](https://travis-ci.org/thetron/mongoid-enum)
+[![Code Climate](https://codeclimate.com/github/thetron/mongoid-enum.svg)](https://codeclimate.com/github/thetron/mongoid-enum)
 
 Heavily inspired by [DHH's
 ActiveRecord::Enum](https://github.com/rails/rails/commit/db41eb8a6ea88b854bf5cd11070ea4245e1639c5), this little library is
