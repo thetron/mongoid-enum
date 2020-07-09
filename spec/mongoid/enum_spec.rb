@@ -7,6 +7,7 @@ class User
 
   enum :status, [:awaiting_approval, :approved, :banned]
   enum :roles, [:author, :editor, :admin], :multiple => true, :default => [], :required => false
+  enum :gender, [:male, :female], _prefix: :user
 end
 
 describe Mongoid::Enum do
@@ -15,6 +16,7 @@ describe Mongoid::Enum do
   let(:alias_name) { :status }
   let(:field_name) { :"_#{alias_name}" }
   let(:values) { [:awaiting_approval, :approved, :banned] }
+  let(:values_with_prefix) { [:user_male, :user_female] }
   let(:multiple_field_name) { :"_roles" }
 
   describe "field" do
@@ -80,6 +82,15 @@ describe Mongoid::Enum do
       let(:instance) { User.new roles: nil }
       it "is valid with nil value" do
         expect(instance).to be_valid
+      end
+    end
+  end
+
+  describe "'_prefix' option" do
+    context "when prefix is present" do
+      let(:instance) { User.new }
+      it "has prefix value" do
+        expect(instance.gender).to eq(:user_male)
       end
     end
   end

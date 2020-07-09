@@ -10,6 +10,7 @@ module Mongoid
       def enum(name, values, options = {})
         field_name = :"#{Mongoid::Enum.configuration.field_name_prefix}#{name}"
         options = default_options(values).merge(options)
+        values = handle_values(values, options[:_prefix])
 
         set_values_constant name, values
 
@@ -28,6 +29,11 @@ module Mongoid
           :required => true,
           :validate => true
         }
+      end
+
+      def handle_values(values, prefix)
+        return values unless prefix
+        values.map { |val| val.to_s.prepend("#{prefix.to_s}_").to_sym }
       end
 
       def set_values_constant(name, values)
