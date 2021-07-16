@@ -1,10 +1,12 @@
-$: << File.expand_path("../../lib", __FILE__)
+# frozen_string_literal: true
+
+$: << File.expand_path('../lib', __dir__)
 
 require 'mongoid'
-require "mongoid/rspec"
+require 'mongoid/rspec'
 require 'mongoid/enum'
 
-ENV['MONGOID_ENV'] = "test"
+ENV['MONGOID_ENV'] = 'test'
 
 RSpec.configure do |config|
   config.include Mongoid::Matchers
@@ -14,5 +16,5 @@ RSpec.configure do |config|
   end
 end
 
-Mongoid.load!(File.expand_path("../support/mongoid.yml", __FILE__), :test)
+Mongoid.load!(File.expand_path('support/mongoid.yml', __dir__), :test)
 Mongo::Logger.logger.level = ::Logger::INFO
