@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Mongoid
   module Enum
     class Configuration
       attr_accessor :field_name_prefix
 
       def initialize
-        self.field_name_prefix = "_"
+        self.field_name_prefix = '_'
       end
     end
 
